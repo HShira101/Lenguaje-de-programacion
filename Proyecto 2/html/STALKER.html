@@ -1,0 +1,2297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.6.2" />
+<title>STALKER API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase;cursor:pointer}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>STALKER</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">import pygame
+import os.path
+import random
+
+class Personaje(pygame.sprite.Sprite):
+    &#34;&#34;&#34;
+        La clase personaje, es la clase padre para la clase jugador y enemigo,
+        contiene todos los atributos en comun y necesario para el juego utiliza
+        el modulo sprite de pygame.
+
+        Atributos:
+            posicionx: Es un int que representa el lugar en x de la pantalla 
+                       que tiene el personaje.
+            posiciony: Es un int que representa el lugar en y de la pantalla 
+                       que tiene el personaje.
+            recarga: Es un int y es el contador que dereminara la velocidad de
+                     disparo del personaje.
+            tipo_personaje: Es un boleano que tine como fin determinar si el
+                            el personaje es un enemigo o jugador, en caso de
+                            ser juagor elegira distintas imagenes.
+            imagenes: Es un surface que carga la imagen que contiene las
+                      las imagenes a usar.
+            posicion_de_imagenes: Es una lista que contiene todas las
+                                  posciciones de las subimagenes dentro de
+                                  imagenes.
+            posicion_estado: Es un diccionario que sirve para recordar y
+                             poder elegir la subimagen siguiente a la 
+                             animacion del personaje y tambien ver la
+                             direccion donde esta viendo el personaje.
+            image: Es un surface que se utilizara para mostrar en la pantalla
+            rect: Es un Rect que contiene el ancho, largo y posicion en el mapa
+                  del objeto.
+    &#34;&#34;&#34;
+    def __init__ (self, posicionx, posiciony, tipo_personaje):
+        &#34;&#34;&#34; Metodo constructor de Personaje, recibe 3 parametros necesarios 
+            para construir el personaje si tipo_personaje es False
+            cargara las imagenes del enemigo en caso contrario seran del 
+            jugador. 
+        &#34;&#34;&#34;
+        pygame.sprite.Sprite.__init__(self)
+        self.posicionx = posicionx
+        self.posiciony = posiciony
+        self.recarga = 12
+        if tipo_personaje == True:
+            self.imagenes = (
+                pygame.image.load(os.path.join(&#39;Images&#39;,&#39;Sprite.png&#39;)))
+            imagen = self.imagenes.subsurface(pygame.Rect(99, 1, 13, 31))
+            self.image = pygame.transform.scale(imagen, (50, 100))
+            self.posicion_de_imagenes = [(4, 1, 13, 32),   #ar,0,1 
+                                         (28, 1, 13, 32),  #ar,1,2
+                                         (52, 1, 13, 32),  #ar,2,3
+                                         (75, 1, 13, 32),  #ab,3,1
+                                         (99, 1, 13, 32),  #ab,4,2
+                                         (123, 1, 13, 32), #ab,5,3
+                                         (146, 1, 16, 32), #iz,6,1
+                                         (170, 1, 16, 32), #iz,7,2
+                                         (194, 1, 16, 32), #iz,8,3
+                                         (218, 1, 16, 32), #der,9,1
+                                         (242, 1, 16, 32), #der,10,2
+                                         (266, 1, 16, 32)  #der, 11,3
+                                        ]
+            self.posicion_estado = { &#39;arriba&#39;:&#39;0&#39;,
+                                    &#39;abajo&#39;:&#39;3&#39;,
+                                    &#39;izquierda&#39;:&#39;6&#39;,
+                                    &#39;derecha&#39;:&#39;9&#39;,
+                                    &#39;actual&#39;:&#39;abajo&#39;
+                                    }
+        else:
+            self.imagenes = (
+                pygame.image.load(os.path.join(&#39;Images&#39;, &#39;Spriteenemigo.png&#39;)))
+            imagen = self.imagenes.subsurface(pygame.Rect(30, 5 ,13, 32))
+            self.image = pygame.transform.scale(imagen, (50,100))
+            self.posicion_de_imagenes = [(6, 5, 13, 32),   #ab,0,1
+                                        (30, 5, 13, 32),  #ab,1,2
+                                        (54, 5, 13, 32),  #ab,2,3
+                                        (101, 5, 15, 32), #iz,3,1
+                                        (125, 5, 15, 32), #iz,4,2
+                                        (149, 5, 15, 32), #iz,5,3
+                                        (200, 5, 12, 32), #ar,6,1
+                                        (224, 5, 12 ,32), #ar,7,2
+                                        (248, 5, 12, 32), #ar,8,3
+                                        (294, 5, 15, 32), #der,9,1
+                                        (318, 5, 15, 32), #der,10,2
+                                        (342, 5, 15, 32)  #der,11,3
+                                       ]
+            self.posicion_estado = { &#39;arriba&#39;:&#39;6&#39;,
+                                    &#39;abajo&#39;:&#39;0&#39;,
+                                    &#39;izquierda&#39;:&#39;4&#39;,
+                                    &#39;derecha&#39;:&#39;9&#39;,
+                                    &#39;actual&#39;:&#39;abajo&#39;
+                                    }
+
+        self.rect = self.image.get_rect()
+        self.rect = self.rect.move(self.posicionx,self.posiciony)
+
+
+
+class Enemigo(Personaje):
+    &#34;&#34;&#34;
+        Clase enemigo, contiene acciones automatizadas contiene parametros para
+        controlar la dificultad del juego.
+
+        Atributos:
+            alerta: Es un boleano que indica si el enemigo a visto al jugador.
+            disparando: Es un boleano que indica si el enemigo esta disparando
+                        y evita que tome otras acciones mientras lo realiza.
+            esperar: Es un entero que sirve para contar el tiempo entre una
+                     accion y otra.
+            eleccion: Es un entero aleatorio que sirve para elegir entre una
+                      accion y otra.
+            recarga: Es un entero que sirve como contador entre un disparo y
+                     otro, evitando que sean muy seguidos.
+    &#34;&#34;&#34;
+    def __init__ (self, posicionx, posiciony, tipo_personaje):
+        &#34;&#34;&#34;
+            Metodo constructor del enemigo, recibe como parametros los de la
+            anterior clase personaje, los demas atributos son ya definidos
+        &#34;&#34;&#34;
+        Personaje.__init__(self, posicionx, posiciony, tipo_personaje)
+        self.alerta = False
+        self.disparando = False
+        self.esperar = 15
+        self.eleccion = random.randint(0,5)
+        self.recarga = 7
+
+    def accion(self, stalker, disparos, objetos):
+        &#34;&#34;&#34;
+            Este metodo ejecuta las acciones del enemigo de forma automatica,
+            recibe 3 parametros la clase jugador (stalker), un grupo de
+            sprites que contienes a los diparos (disparos) y otro grupo de 
+            spites que contiene los objetos (objetos), no retorna ningun
+            dato, solo modifica los parametros de la clase.
+        &#34;&#34;&#34;
+        actual = self.posicion_estado.get(&#39;actual&#39;)
+        if stalker.posicionx &lt;= self.posicionx+24 &lt;= stalker.posicionx+50:
+            if actual == &#39;abajo&#39; and stalker.posiciony &gt;= self.posiciony+100:
+                if self.recarga == 7:
+                    pygame.mixer.music.play()
+                    disparo = bala(self.posicionx, self.posiciony, actual)
+                    disparos.add(disparo)
+                    self.disparando = True
+                    self.recarga = 0
+            if actual == &#39;arriba&#39;and stalker.posiciony &lt;= self.posiciony:
+                if self.recarga == 7:
+                    pygame.mixer.music.play()
+                    disparo = bala(self.posicionx, self.posiciony, actual)
+                    disparos.add(disparo)
+                    self.disparando = True
+                    self.recarga = 0
+        elif stalker.posiciony &lt;= self.posiciony+29 &lt;= stalker.posiciony+100:
+            if actual == &#39;izquierda&#39; and stalker.posicionx &lt;= self.posicionx:
+                if self.recarga == 7:
+                    pygame.mixer.music.play()
+                    disparo = bala(self.posicionx-1, self.posiciony, actual)
+                    disparos.add(disparo)
+                    self.disparando = True
+                    self.recarga = 0
+            if actual == &#39;derecha&#39; and stalker.posicionx &gt;= self.posicionx+50:
+                if self.recarga == 7:
+                    pygame.mixer.music.play()
+                    disparo = bala(self.posicionx+5, self.posiciony, actual)
+                    disparos.add(disparo)
+                    self.disparando = True
+                    self.recarga = 0
+        else:
+            self.disparando = False
+
+        if self.alerta == False and self.disparando == False:
+            if self.esperar == 0:
+                self.eleccion = random.randint(0,4)
+                self.esperar = random.randint(0,10)+10
+            if self.eleccion == 1:
+                if self.posiciony-5 &lt;= 0:
+                    self.eleccion = random.randint(2,4)
+                else:
+                    self.posiciony += -5
+                    self.rect.y = self.posiciony
+                    self.esperar += -1
+                    estado = int(self.posicion_estado.get(&#39;arriba&#39;))
+                    imagen = self.imagenes.subsurface(
+                        pygame.Rect(self.posicion_de_imagenes[estado]))
+                    self.image = pygame.transform.scale(imagen, (50, 100))
+                    estado = 0
+                    while estado &lt;= int(self.posicion_estado.get(&#39;arriba&#39;)):
+                        estado += 1
+    
+                    if estado == 8:
+                        estado = 6
+
+                    self.posicion_estado[&#39;arriba&#39;] = estado
+                    self.posicion_estado[&#39;actual&#39;] = &#39;arriba&#39;
+            elif self.eleccion == 2:
+                if self.posiciony+100 &gt;= 600:
+                    self.eleccion = random.randint(3,4)
+                else:
+                    self.posiciony += 5
+                    self.rect.y = self.posiciony
+                    self.esperar += -1
+                    estado = int(self.posicion_estado.get(&#39;abajo&#39;))
+                    imagen = self.imagenes.subsurface(
+                        pygame.Rect(self.posicion_de_imagenes[estado]))
+                    self.image = pygame.transform.scale(imagen, (50, 100))
+                    estado = 0
+                    while estado &lt;= int(self.posicion_estado.get(&#39;abajo&#39;)):
+                        estado += 1
+
+                    if estado == 3:
+                        estado = 0
+
+                    self.posicion_estado[&#39;abajo&#39;] = estado
+                    self.posicion_estado[&#39;actual&#39;] = &#39;abajo&#39;
+            elif self.eleccion == 3:
+                if self.posicionx -5 &lt;= 0:
+                    self.eleccion = 4
+                else:
+                    self.posicionx += -5
+                    self.rect.x = self.posicionx
+                    self.esperar += -1
+                    estado = int(self.posicion_estado.get(&#39;izquierda&#39;))
+                    imagen = self.imagenes.subsurface(
+                        pygame.Rect(self.posicion_de_imagenes[estado]))
+                    self.image = pygame.transform.scale(
+                        imagen, (int(15/0.26), 100))
+                    estado = 0
+                    while estado &lt;= int(self.posicion_estado.get(&#39;izquierda&#39;)):
+                        estado += 1
+
+                    if estado == 5:
+                        estado = 3
+
+                    self.posicion_estado[&#39;izquierda&#39;] = estado
+                    self.posicion_estado[&#39;actual&#39;] = &#39;izquierda&#39;
+            elif self.eleccion == 4:
+                if self.posicionx +50 &gt;= 900:
+                    self.eleccion = random.randint(1,3)
+                else: 
+                    self.posicionx += 5
+                    self.rect.x = self.posicionx
+                    self.esperar += -1
+                    estado = int(self.posicion_estado.get(&#39;derecha&#39;))
+                    imagen = self.imagenes.subsurface(
+                        pygame.Rect(self.posicion_de_imagenes[estado]))
+                    self.image = pygame.transform.scale(
+                        imagen, (int(15/0.26), 100))
+                    estado = 0
+                    while estado &lt;= int(self.posicion_estado.get(&#39;derecha&#39;)):
+                        estado += 1
+
+                    if estado == 11:
+                        estado = 9
+
+                    self.posicion_estado[&#39;derecha&#39;] = estado
+                    self.posicion_estado[&#39;actual&#39;] = &#39;derecha&#39;
+            else:
+                self.esperar += -1
+
+
+        if self.alerta == True and self.disparando == False:
+            if stalker.posicionx - self.posicionx &lt; 0:
+                distanciax = self.posicionx - stalker.posicionx
+            else:
+                distanciax = stalker.posicionx - self.posicionx
+
+            if stalker.posiciony - self.posiciony &lt; 0:
+                distanciay = self.posiciony - stalker.posiciony
+            else:
+                distanciay = stalker.posiciony - self.posiciony
+
+            if distanciax &gt;= distanciay:
+                if (stalker.posicionx - self.posicionx) &lt; 0: #izq
+                    self.posicionx += -5
+                    self.rect.x = self.posicionx
+                    estado = int(self.posicion_estado.get(&#39;izquierda&#39;))
+                    imagen = self.imagenes.subsurface(
+                        pygame.Rect(self.posicion_de_imagenes[estado]))
+                    self.image = pygame.transform.scale(
+                        imagen, (int(15/0.26), 100))
+                    estado = 0
+                    while estado &lt;= int(self.posicion_estado.get(&#39;izquierda&#39;)):
+                        estado += 1
+
+                    if estado == 5:
+                        estado = 3
+    
+                    self.posicion_estado[&#39;izquierda&#39;] = estado
+                    self.posicion_estado[&#39;actual&#39;] = &#39;izquierda&#39;
+                else:
+                    self.posicionx += 5
+                    self.rect.x = self.posicionx
+                    estado = int(self.posicion_estado.get(&#39;derecha&#39;))
+                    imagen = self.imagenes.subsurface(
+                        pygame.Rect(self.posicion_de_imagenes[estado]))
+                    self.image = pygame.transform.scale(
+                        imagen, (int(15/0.26), 100))
+                    estado = 0
+                    while estado &lt;= int(self.posicion_estado.get(&#39;derecha&#39;)):
+                        estado += 1
+
+                    if estado == 11:
+                        estado = 9
+
+                    self.posicion_estado[&#39;derecha&#39;] = estado
+                    self.posicion_estado[&#39;actual&#39;] = &#39;derecha&#39;
+            else:
+                if (stalker.posiciony - self.posiciony) &lt; 0: #arr
+                    self.posiciony += -5
+                    self.rect.y = self.posiciony
+                    estado = int(self.posicion_estado.get(&#39;arriba&#39;))
+                    imagen = self.imagenes.subsurface(
+                        pygame.Rect(self.posicion_de_imagenes[estado]))
+                    self.image = pygame.transform.scale(imagen, (50, 100))
+                    estado = 0
+                    while estado &lt;= int(self.posicion_estado.get(&#39;arriba&#39;)):
+                        estado += 1
+
+                    if estado == 8:
+                        estado = 6
+
+                    self.posicion_estado[&#39;arriba&#39;] = estado
+                    self.posicion_estado[&#39;actual&#39;] = &#39;arriba&#39;
+                else:
+                    self.posiciony += 5
+                    self.rect.y = self.posiciony
+                    estado = int(self.posicion_estado.get(&#39;abajo&#39;))
+                    imagen = self.imagenes.subsurface(
+                        pygame.Rect(self.posicion_de_imagenes[estado]))
+                    self.image = pygame.transform.scale(imagen, (50, 100))
+                    estado = 0
+                    while estado &lt;= int(self.posicion_estado.get(&#39;abajo&#39;)):
+                        estado += 1
+
+                    if estado == 3:
+                        estado = 0
+
+                    self.posicion_estado[&#39;abajo&#39;] = estado
+                    self.posicion_estado[&#39;actual&#39;] = &#39;abajo&#39;
+        
+        if self.recarga &lt; 7:
+            self.recarga += 1
+  
+
+class Jugador(Personaje):
+    &#34;&#34;&#34;
+        Clase que representa al jugador, esta clase contiene los atributos de
+        la anterior clase Personaje, no tiene otros atributos extra.
+    &#34;&#34;&#34;
+    def __init__ (self, posicionx, posiciony, tipo_personaje):
+        &#34;&#34;&#34;
+            Metodo construtor del Jugador solo recibe los parametros de la
+            anterior clase.
+        &#34;&#34;&#34;
+        Personaje.__init__(self, posicionx, posiciony, tipo_personaje)
+
+    def accion (self, tecla, disparos):
+        &#34;&#34;&#34;
+            Este metodo contiene todas las acciones que puede tomar el jugador
+            recibe como parametro la tecla presionada por el jugador (tecla) y
+            un grupo de sprites que contiene los disparos (disparos), no
+            retorna ningun dato, solo modifica los parametros de la clase.
+        &#34;&#34;&#34;
+        if tecla[pygame.K_UP] or tecla[pygame.K_w]:
+            estado = self.posicion_estado.get(&#39;arriba&#39;)
+            imagen = self.imagenes.subsurface(
+                pygame.Rect(self.posicion_de_imagenes[int(estado)]))
+            if (self.posiciony) &gt;= 0 and self.posiciony - 5 &gt;= 0:
+                self.posiciony += -8
+                self.rect.y = self.posiciony
+                self.image = pygame.transform.scale(imagen, (50, 100))
+                estado = 0
+                while estado &lt;= int(self.posicion_estado.get(&#39;arriba&#39;)):
+                    estado += 1
+            
+                if estado == 3:
+                    estado = 0
+
+                self.posicion_estado[&#39;arriba&#39;] = estado
+                self.posicion_estado[&#39;actual&#39;] = &#39;arriba&#39;
+            else:
+                imagen = self.imagenes.subsurface(pygame.Rect(28, 1, 13, 32))
+                self.image = pygame.transform.scale(imagen, (50, 100))
+                self.posicion_estado[&#39;actual&#39;] = &#39;arriba&#39;
+
+        elif tecla[pygame.K_DOWN] or tecla[pygame.K_s]:
+            estado = self.posicion_estado.get(&#39;abajo&#39;)
+            imagen = self.imagenes.subsurface(
+                pygame.Rect(self.posicion_de_imagenes[int(estado)]))
+            if (self.posiciony)+105 &lt;= 600:         
+                self.posiciony += 8
+                self.rect.y = self.posiciony
+                self.image = pygame.transform.scale(imagen, (50, 100))
+                estado = 3
+                while estado &lt;= int(self.posicion_estado.get(&#39;abajo&#39;)):
+                    estado += 1
+
+                if estado == 6:
+                    estado = 3
+                self.posicion_estado[&#39;abajo&#39;] = estado
+                self.posicion_estado[&#39;actual&#39;] = &#39;abajo&#39;
+            else:
+                imagen = self.imagenes.subsurface(pygame.Rect(99, 1, 13, 32))
+                self.posicion_estado[&#39;actual&#39;] = &#39;abajo&#39;
+                self.image = pygame.transform.scale(imagen, (50, 100))
+
+        elif tecla[pygame.K_LEFT] or tecla[pygame.K_a]:
+            estado = self.posicion_estado.get(&#39;izquierda&#39;)
+            imagen = self.imagenes.subsurface(
+                pygame.Rect(self.posicion_de_imagenes[int(estado)]))            
+            if (self.posicionx) &gt;= 0 and self.posicionx - 5 &gt;= 0:           
+                self.posicionx += -8
+                self.rect.x = self.posicionx
+                self.image = pygame.transform.scale(
+                    imagen, (int(16/0.26), 100))
+                estado = 6
+                while estado &lt;= int(self.posicion_estado.get(&#39;izquierda&#39;)):
+                    estado += 1
+
+                if estado == 9:
+                    estado = 6
+                self.posicion_estado[&#39;izquierda&#39;] = estado
+                self.posicion_estado[&#39;actual&#39;] = &#39;izquierda&#39;
+
+            else:
+                imagen = self.imagenes.subsurface(pygame.Rect(170, 1, 15, 32))
+                self.posicion_estado[&#39;actual&#39;] = &#39;izquierda&#39;
+                self.image = pygame.transform.scale(imagen, (int(16/0.26), 100))
+
+        elif tecla[pygame.K_RIGHT] or tecla[pygame.K_d]:
+            estado = self.posicion_estado.get(&#39;derecha&#39;)
+            imagen = self.imagenes.subsurface(
+                pygame.Rect(self.posicion_de_imagenes[int(estado)]))
+            if (self.posicionx)+int(16/0.26) &lt;= 900:          
+                self.posicionx += 8
+                self.rect.x = self.posicionx
+                self.image = pygame.transform.scale(
+                    imagen, (int(16/0.26), 100))
+                estado = 9
+                while estado &lt;= int(self.posicion_estado.get(&#39;derecha&#39;)):
+                    estado += 1
+
+                if estado == 12:
+                    estado = 9
+                self.posicion_estado[&#39;derecha&#39;] = estado
+                self.posicion_estado[&#39;actual&#39;] = &#39;derecha&#39;
+
+            else:
+                imagen = self.imagenes.subsurface(pygame.Rect(242, 1, 16, 32))
+                self.posicion_estado[&#39;actual&#39;] = &#39;derecha&#39;
+                self.image = pygame.transform.scale(
+                    imagen, (int(16/0.26), 100))
+        else:
+            estado = self.posicion_estado.get(&#39;actual&#39;)
+            if estado == &#39;arriba&#39;:
+                imagen = self.imagenes.subsurface(pygame.Rect(28, 1, 13, 32))
+                self.image = pygame.transform.scale(imagen, (50, 100))
+            if estado == &#39;abajo&#39;:
+                imagen = self.imagenes.subsurface(pygame.Rect(99, 1, 13, 32))
+                self.image = pygame.transform.scale(imagen, (50, 100))
+            if estado == &#39;izquierda&#39;:
+                imagen = self.imagenes.subsurface(pygame.Rect(170, 1, 16, 32))
+                self.image = pygame.transform.scale(
+                    imagen, (int(16/0.26), 100))
+            if estado == &#39;derecha&#39;:
+                imagen = self.imagenes.subsurface(pygame.Rect(242, 1, 16, 32))
+                self.image = pygame.transform.scale(
+                    imagen, (int(16/0.26), 100))
+        
+        if tecla[pygame.K_SPACE]:
+            if self.recarga &gt;= 12:
+                pygame.mixer.music.play()
+                disparo = bala(self.posicionx, self.posiciony, 
+                    self.posicion_estado.get(&#39;actual&#39;))
+                disparos.add(disparo)
+                self.recarga = 0
+
+        if tecla[pygame.K_r]:
+            self.recarga +=2
+
+        self.recarga += 1
+
+class bala(pygame.sprite.Sprite):
+    &#34;&#34;&#34;
+        Clase que representa una bala dentro del juego, utiliza el modulo
+        sprite.
+        
+        Atributos:
+            image: Es un surface y la imagen de la bala.
+            posicionx: Es un entero que sirve para ubicar en el eje x la
+                       posicion de la bala.
+            posiciony: Es un entero que sirve para ubicar en el eje y la
+                       posicion de la bala.
+            direccion: Es un string y sirve para indicar la trayectoria de la
+                       bala durante el juego
+            rect: Es un rect que contiene el ancho, largo y posicion de la
+                  imagen y que utilizara en el juego.
+    &#34;&#34;&#34;
+    def __init__ (self, posicionx, posiciony, direccion):
+        &#34;&#34;&#34;
+            Metodo constructor de la clase bala y que recibe como parametro un
+            entero para la posicion en x (posicionx), otro entero para la
+            posicion en y (posiciony) y el string para reprecentar la 
+            trayectoria (direccion), los parametros recibidos son de los 
+            personajes.
+        &#34;&#34;&#34;
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface([5,5])
+        self.image.fill((25,25,25))
+        if direccion == &#39;arriba&#39;:
+            self.posicionx = posicionx + 24
+            self.posiciony = posiciony - 5
+        elif direccion == &#39;abajo&#39;:
+            self.posicionx = posicionx +24
+            self.posiciony = posiciony +100
+        elif direccion == &#39;izquierda&#39;:
+            self.posicionx = posicionx -6
+            self.posiciony = posiciony +29
+        else:
+            self.posicionx = posicionx +63
+            self.posiciony = posiciony +29
+
+        self.direccion = direccion
+        self.rect = self.image.get_rect()
+        self.rect = self.rect.move(self.posicionx,self.posiciony)
+
+    def mover(self):
+        &#34;&#34;&#34;
+            Este metodo sirve para mover cada bala en pantalla solo cambia los
+            parametros de la clase, por lo que no recibe otro parametros, no
+            retorna ningun dato.
+        &#34;&#34;&#34;
+        if self.direccion == &#39;arriba&#39;:
+            self.posiciony += -15
+            self.rect.y = self.posiciony
+    
+        if self.direccion == &#39;abajo&#39;:
+            self.posiciony += 15
+            self.rect.y = self.posiciony
+
+        if self.direccion == &#39;izquierda&#39;:
+            self.posicionx += -15
+            self.rect.x = self.posicionx
+
+        if self.direccion == &#39;derecha&#39;:
+            self.posicionx += 15
+            self.rect.x = self.posicionx
+
+def crearobjetos():
+    &#34;&#34;&#34;
+        Crear objeto
+        
+        Esta funcion crea cara objeto dentro del juego, no recibe ningun
+        parametro, cada objeto esta predefinido.
+        
+        Retorna:
+            Un grupo de sprites que contiene cada objeto dentro del juego.
+    &#34;&#34;&#34;
+    objetos = pygame.sprite.Group()
+    arbol = Objeto(1,0,0)
+    objetos.add(arbol)
+    arbol = Objeto(1,250,400)
+    objetos.add(arbol)
+    arbol = Objeto(1,850,480)
+    objetos.add(arbol)
+    arbol = Objeto(1,650,210)
+    objetos.add(arbol)
+    arbol = Objeto(1,210,230)
+    objetos.add(arbol)
+    arbol = Objeto(1,230,0)
+    objetos.add(arbol)
+    arbol = Objeto(1,600,0)
+    objetos.add(arbol)
+    caja = Objeto(2,110,130)
+    objetos.add(caja)
+    caja = Objeto(2,110,400)
+    objetos.add(caja)
+    caja = Objeto(2,650,450)
+    objetos.add(caja)
+    caja = Objeto(2,650,450)
+    objetos.add(caja)
+    caja = Objeto(2,350,320)
+    objetos.add(caja)
+    caja = Objeto(2,870,10)
+    objetos.add(caja)
+
+    return objetos
+
+class Objeto(pygame.sprite.Sprite):
+    &#34;&#34;&#34;
+        Esta clase sirve para crear cada objeto en el juego, contiene 3
+        opciones de creacion dependiendo que objeto se desee, utliza
+        modulo sprite, como solo son objetos estaticos no tiene otros metodos.
+        
+        Atributos:
+            image: Es un surface que sera la imagen del objeto.
+            rect: Es un rect que contiene el ancho y largo de la imagen
+                  como tambien su posicion tanto en x como en y.
+    &#34;&#34;&#34;
+    def __init__ (self,o,x,y):
+        &#34;&#34;&#34;
+            Metodo contructor de la clase recie 3 parametros, un entero que es
+            para definir cual de los 3 objetos se usara (o), un entero para su
+            posicion en x (x) y un ultimo entero para definir su posicion
+            en y (y)
+        &#34;&#34;&#34;
+        pygame.sprite.Sprite.__init__(self)
+        if o == 1:
+            self.image = pygame.image.load(os.path.join(&#39;Images&#39;, &#39;Arbol.png&#39;))
+            self.image = pygame.transform.scale(self.image, (50,120))
+            self.rect = self.image.get_rect()
+            self.rect = self.rect.move(x,y)
+        elif o == 2:
+            self.image = pygame.image.load(os.path.join(&#39;Images&#39;, &#39;caja.png&#39;))
+            self.image = pygame.transform.scale(self.image, (40, 50))
+            self.rect = self.image.get_rect()
+            self.rect = self.rect.move(x,y)
+        elif o==3:
+            self.image = pygame.image.load(os.path.join(
+                &#39;Images&#39;, &#39;targeta.png&#39;))
+            self.image = pygame.transform.scale(self.image, (30,20))
+            self.rect = self.image.get_rect()
+            self.rect = self.rect.move(x,y)
+
+class Hud_f:
+    &#34;&#34;&#34;
+        Clase que contiene al hud y la imagen que se utlizara de fondo
+        
+        Atributos:
+            rgb: Es una tupla que contiene el color en codigo RGB el color
+                 que tendra de fondo el hud
+            imagen: Es un surface que contiene la imagen de fondo del juego
+                    en si.
+    &#34;&#34;&#34;
+    def __init__(self):
+        &#34;&#34;&#34;
+            Metodo constructor de la clase, no recibe ningun parametro, esta
+            todo definido.
+        &#34;&#34;&#34;
+        self.rgb = (50,0,0)
+        self.imagen = pygame.image.load(os.path.join(&#39;Images&#39;, &#39;pasto.jpg&#39;))
+        self.imagen = pygame.transform.scale(self.imagen, (50,50))
+
+def pintar (lista_personajes, pantalla, HUD, disparos, objetos,targeta):
+    &#34;&#34;&#34;
+        Pintar
+
+        Esta funcion se encarga de poner en pantalla cada una las imagenes que
+        deberian estar en pantalla, no retorna ningun dato solo actualiza la
+        pantalla
+
+        Args:
+            lista_personajes: Es un grupo de sprites que contiene cada
+                              personaje en el juego.
+            pantalla: Es la ventana en la cual se va a dibujar todas las
+                      imagenes.
+            HUD: es una clase que contiene el hud del juego y el fondo
+            disparos: Es una lista de sprites que contien cada disparo para ser
+                      dibujado.
+            objetos: contiene cada objeto en pantalla que sera de obstaculo.s
+            targeta: es una grupo de sprites que contiene un objeto especial.
+        
+        
+        Retorna:
+            no retorna ningun dato, solo actualiza la pantalla.
+    &#34;&#34;&#34;
+    pantalla.fill((255, 255, 255))
+    x = 0
+    y = 0
+    while y&lt;= 12:
+        while x &lt;= 18:
+            pantalla.blit(HUD.imagen,((x)*50,(y)*50))
+            x += 1
+        y += 1
+        x = 0
+    
+    targeta.draw(pantalla)
+    pygame.draw.rect(pantalla, HUD.rgb, pygame.Rect(0, 600, 900, 50))
+    disparos.draw(pantalla)
+    lista_personajes.draw(pantalla)
+    objetos.draw(pantalla)
+    pygame.display.update()
+
+
+
+def iniciarjuego(pantalla, HUD, tecla, clock, objetos):
+    &#34;&#34;&#34;
+        Iniciar juego
+
+        Esta funcion sirve para iniciar el juego y contiene el bucle
+        infinito del juego que solo sera roto cerrando la pantalla o apretando
+        la tecla ESC.
+
+        Args:
+            pantalla: Es la ventana por la cual se esta ejecutando el juego
+            HUD: Es la clase que contiene el fondo y el hud del juego
+            tecla: Es la funcion que detecta que tecla esta presionando el
+                   jugador
+            clock: Es un reloj para controlar la velociodad de la iteracion
+                   del bucle o ciclo while
+            objetos: Es un grupo de sprites que contiene cada objeto creado.
+        
+        Retorna:
+            No retorna dato alguno, solo contiene el bucle del juego
+    &#34;&#34;&#34;
+    i = False
+    disparos = pygame.sprite.Group()
+    pygame.mixer.music.load(os.path.join(&#39;Images&#39;, &#39;AK.wav&#39;))
+    stalker = Jugador(0, 299, True)
+    lista_personajes = pygame.sprite.Group()
+    lista_personajes.add(stalker)
+    Spetznas = pygame.sprite.Group()
+    Spetzna = Enemigo(450,0, False)
+    Spetznas.add(Spetzna)
+    lista_personajes.add(Spetzna)
+    Spetzna = Enemigo(850,250, False)
+    Spetznas.add(Spetzna)
+    lista_personajes.add(Spetzna)
+    Spetzna = Enemigo(450,500, False)
+    Spetznas.add(Spetzna)      
+    lista_personajes.add(Spetzna)
+    Spetzna = Enemigo(450,300, False)
+    Spetznas.add(Spetzna)      
+    lista_personajes.add(Spetzna)
+    t = pygame.sprite.Group() 
+    targeta = Objeto(3,860,230)
+    t.add(targeta)
+
+    while not i:
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT or tecla[pygame.K_ESCAPE]:
+                i = True
+
+        for Spetsnax in Spetznas:
+            Spetsnax.accion(stalker, disparos,objetos)
+
+        for disparo in disparos:
+            if (disparo.posicionx -10 &lt;= 0 or disparo.posicionx +10 &gt;= 900 
+            or disparo.posiciony -10 &lt;= 0 or disparo.posiciony +10 &gt;= 600):
+                disparos.remove(disparo)
+            else:
+                disparo.mover()
+                pygame.sprite.groupcollide(disparos, lista_personajes, True, True)
+                pygame.sprite.groupcollide(disparos, objetos, True, False)
+
+        tecla = pygame.key.get_pressed()
+        stalker.accion(tecla,disparos)
+        pintar(lista_personajes, pantalla, HUD, disparos, objetos, t)
+        clock.tick(15)
+
+
+
+def main():
+    &#34;&#34;&#34;
+        Main
+        
+        Es donde comienza todo, crea la vetana, el HUD, inicializa la espera de
+        evento para el presionado de teclas, el reloj que se utilizara para
+        controlar ciclos de iteracion y el grupo de objetos.
+    &#34;&#34;&#34;
+    pygame.init()
+    pantalla = pygame.display.set_mode((900, 650))
+    pygame.display.set_caption(&#34;S.T.A.L.K.E.R&#34;)
+    tecla = pygame.key.get_pressed()
+    HUD = Hud_f()
+    clock = pygame.time.Clock()
+    objetos = crearobjetos()
+    iniciarjuego(pantalla, HUD, tecla, clock, objetos)
+
+main()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="STALKER.crearobjetos"><code class="name flex">
+<span>def <span class="ident">crearobjetos</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Crear objeto</p>
+<p>Esta funcion crea cara objeto dentro del juego, no recibe ningun
+parametro, cada objeto esta predefinido.</p>
+<h2 id="retorna">Retorna</h2>
+<p>Un grupo de sprites que contiene cada objeto dentro del juego.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def crearobjetos():
+    &#34;&#34;&#34;
+        Crear objeto
+        
+        Esta funcion crea cara objeto dentro del juego, no recibe ningun
+        parametro, cada objeto esta predefinido.
+        
+        Retorna:
+            Un grupo de sprites que contiene cada objeto dentro del juego.
+    &#34;&#34;&#34;
+    objetos = pygame.sprite.Group()
+    arbol = Objeto(1,0,0)
+    objetos.add(arbol)
+    arbol = Objeto(1,250,400)
+    objetos.add(arbol)
+    arbol = Objeto(1,850,480)
+    objetos.add(arbol)
+    arbol = Objeto(1,650,210)
+    objetos.add(arbol)
+    arbol = Objeto(1,210,230)
+    objetos.add(arbol)
+    arbol = Objeto(1,230,0)
+    objetos.add(arbol)
+    arbol = Objeto(1,600,0)
+    objetos.add(arbol)
+    caja = Objeto(2,110,130)
+    objetos.add(caja)
+    caja = Objeto(2,110,400)
+    objetos.add(caja)
+    caja = Objeto(2,650,450)
+    objetos.add(caja)
+    caja = Objeto(2,650,450)
+    objetos.add(caja)
+    caja = Objeto(2,350,320)
+    objetos.add(caja)
+    caja = Objeto(2,870,10)
+    objetos.add(caja)
+
+    return objetos</code></pre>
+</details>
+</dd>
+<dt id="STALKER.iniciarjuego"><code class="name flex">
+<span>def <span class="ident">iniciarjuego</span></span>(<span>pantalla, HUD, tecla, clock, objetos)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Iniciar juego</p>
+<p>Esta funcion sirve para iniciar el juego y contiene el bucle
+infinito del juego que solo sera roto cerrando la pantalla o apretando
+la tecla ESC.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pantalla</code></strong></dt>
+<dd>Es la ventana por la cual se esta ejecutando el juego</dd>
+<dt><strong><code>HUD</code></strong></dt>
+<dd>Es la clase que contiene el fondo y el hud del juego</dd>
+<dt><strong><code>tecla</code></strong></dt>
+<dd>Es la funcion que detecta que tecla esta presionando el
+jugador</dd>
+<dt><strong><code>clock</code></strong></dt>
+<dd>Es un reloj para controlar la velociodad de la iteracion
+del bucle o ciclo while</dd>
+<dt><strong><code>objetos</code></strong></dt>
+<dd>Es un grupo de sprites que contiene cada objeto creado.</dd>
+</dl>
+<h2 id="retorna">Retorna</h2>
+<p>No retorna dato alguno, solo contiene el bucle del juego</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def iniciarjuego(pantalla, HUD, tecla, clock, objetos):
+    &#34;&#34;&#34;
+        Iniciar juego
+
+        Esta funcion sirve para iniciar el juego y contiene el bucle
+        infinito del juego que solo sera roto cerrando la pantalla o apretando
+        la tecla ESC.
+
+        Args:
+            pantalla: Es la ventana por la cual se esta ejecutando el juego
+            HUD: Es la clase que contiene el fondo y el hud del juego
+            tecla: Es la funcion que detecta que tecla esta presionando el
+                   jugador
+            clock: Es un reloj para controlar la velociodad de la iteracion
+                   del bucle o ciclo while
+            objetos: Es un grupo de sprites que contiene cada objeto creado.
+        
+        Retorna:
+            No retorna dato alguno, solo contiene el bucle del juego
+    &#34;&#34;&#34;
+    i = False
+    disparos = pygame.sprite.Group()
+    pygame.mixer.music.load(os.path.join(&#39;Images&#39;, &#39;AK.wav&#39;))
+    stalker = Jugador(0, 299, True)
+    lista_personajes = pygame.sprite.Group()
+    lista_personajes.add(stalker)
+    Spetznas = pygame.sprite.Group()
+    Spetzna = Enemigo(450,0, False)
+    Spetznas.add(Spetzna)
+    lista_personajes.add(Spetzna)
+    Spetzna = Enemigo(850,250, False)
+    Spetznas.add(Spetzna)
+    lista_personajes.add(Spetzna)
+    Spetzna = Enemigo(450,500, False)
+    Spetznas.add(Spetzna)      
+    lista_personajes.add(Spetzna)
+    Spetzna = Enemigo(450,300, False)
+    Spetznas.add(Spetzna)      
+    lista_personajes.add(Spetzna)
+    t = pygame.sprite.Group() 
+    targeta = Objeto(3,860,230)
+    t.add(targeta)
+
+    while not i:
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT or tecla[pygame.K_ESCAPE]:
+                i = True
+
+        for Spetsnax in Spetznas:
+            Spetsnax.accion(stalker, disparos,objetos)
+
+        for disparo in disparos:
+            if (disparo.posicionx -10 &lt;= 0 or disparo.posicionx +10 &gt;= 900 
+            or disparo.posiciony -10 &lt;= 0 or disparo.posiciony +10 &gt;= 600):
+                disparos.remove(disparo)
+            else:
+                disparo.mover()
+                pygame.sprite.groupcollide(disparos, lista_personajes, True, True)
+                pygame.sprite.groupcollide(disparos, objetos, True, False)
+
+        tecla = pygame.key.get_pressed()
+        stalker.accion(tecla,disparos)
+        pintar(lista_personajes, pantalla, HUD, disparos, objetos, t)
+        clock.tick(15)</code></pre>
+</details>
+</dd>
+<dt id="STALKER.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Main</p>
+<p>Es donde comienza todo, crea la vetana, el HUD, inicializa la espera de
+evento para el presionado de teclas, el reloj que se utilizara para
+controlar ciclos de iteracion y el grupo de objetos.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def main():
+    &#34;&#34;&#34;
+        Main
+        
+        Es donde comienza todo, crea la vetana, el HUD, inicializa la espera de
+        evento para el presionado de teclas, el reloj que se utilizara para
+        controlar ciclos de iteracion y el grupo de objetos.
+    &#34;&#34;&#34;
+    pygame.init()
+    pantalla = pygame.display.set_mode((900, 650))
+    pygame.display.set_caption(&#34;S.T.A.L.K.E.R&#34;)
+    tecla = pygame.key.get_pressed()
+    HUD = Hud_f()
+    clock = pygame.time.Clock()
+    objetos = crearobjetos()
+    iniciarjuego(pantalla, HUD, tecla, clock, objetos)</code></pre>
+</details>
+</dd>
+<dt id="STALKER.pintar"><code class="name flex">
+<span>def <span class="ident">pintar</span></span>(<span>lista_personajes, pantalla, HUD, disparos, objetos, targeta)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Pintar</p>
+<p>Esta funcion se encarga de poner en pantalla cada una las imagenes que
+deberian estar en pantalla, no retorna ningun dato solo actualiza la
+pantalla</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>lista_personajes</code></strong></dt>
+<dd>Es un grupo de sprites que contiene cada
+personaje en el juego.</dd>
+<dt><strong><code>pantalla</code></strong></dt>
+<dd>Es la ventana en la cual se va a dibujar todas las
+imagenes.</dd>
+<dt><strong><code>HUD</code></strong></dt>
+<dd>es una clase que contiene el hud del juego y el fondo</dd>
+<dt><strong><code>disparos</code></strong></dt>
+<dd>Es una lista de sprites que contien cada disparo para ser
+dibujado.</dd>
+<dt><strong><code>objetos</code></strong></dt>
+<dd>contiene cada objeto en pantalla que sera de obstaculo.s</dd>
+<dt><strong><code>targeta</code></strong></dt>
+<dd>es una grupo de sprites que contiene un objeto especial.</dd>
+</dl>
+<h2 id="retorna">Retorna</h2>
+<p>no retorna ningun dato, solo actualiza la pantalla.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def pintar (lista_personajes, pantalla, HUD, disparos, objetos,targeta):
+    &#34;&#34;&#34;
+        Pintar
+
+        Esta funcion se encarga de poner en pantalla cada una las imagenes que
+        deberian estar en pantalla, no retorna ningun dato solo actualiza la
+        pantalla
+
+        Args:
+            lista_personajes: Es un grupo de sprites que contiene cada
+                              personaje en el juego.
+            pantalla: Es la ventana en la cual se va a dibujar todas las
+                      imagenes.
+            HUD: es una clase que contiene el hud del juego y el fondo
+            disparos: Es una lista de sprites que contien cada disparo para ser
+                      dibujado.
+            objetos: contiene cada objeto en pantalla que sera de obstaculo.s
+            targeta: es una grupo de sprites que contiene un objeto especial.
+        
+        
+        Retorna:
+            no retorna ningun dato, solo actualiza la pantalla.
+    &#34;&#34;&#34;
+    pantalla.fill((255, 255, 255))
+    x = 0
+    y = 0
+    while y&lt;= 12:
+        while x &lt;= 18:
+            pantalla.blit(HUD.imagen,((x)*50,(y)*50))
+            x += 1
+        y += 1
+        x = 0
+    
+    targeta.draw(pantalla)
+    pygame.draw.rect(pantalla, HUD.rgb, pygame.Rect(0, 600, 900, 50))
+    disparos.draw(pantalla)
+    lista_personajes.draw(pantalla)
+    objetos.draw(pantalla)
+    pygame.display.update()</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="STALKER.Enemigo"><code class="flex name class">
+<span>class <span class="ident">Enemigo</span></span>
+<span>(</span><span>posicionx, posiciony, tipo_personaje)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Clase enemigo, contiene acciones automatizadas contiene parametros para
+controlar la dificultad del juego.</p>
+<h2 id="atributos">Atributos</h2>
+<dl>
+<dt><strong><code>alerta</code></strong></dt>
+<dd>Es un boleano que indica si el enemigo a visto al jugador.</dd>
+<dt><strong><code>disparando</code></strong></dt>
+<dd>Es un boleano que indica si el enemigo esta disparando
+y evita que tome otras acciones mientras lo realiza.</dd>
+<dt><strong><code>esperar</code></strong></dt>
+<dd>Es un entero que sirve para contar el tiempo entre una
+accion y otra.</dd>
+<dt><strong><code>eleccion</code></strong></dt>
+<dd>Es un entero aleatorio que sirve para elegir entre una
+accion y otra.</dd>
+<dt><strong><code>recarga</code></strong></dt>
+<dd>Es un entero que sirve como contador entre un disparo y
+otro, evitando que sean muy seguidos.</dd>
+</dl>
+<p>Metodo constructor del enemigo, recibe como parametros los de la
+anterior clase personaje, los demas atributos son ya definidos</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class Enemigo(Personaje):
+    &#34;&#34;&#34;
+        Clase enemigo, contiene acciones automatizadas contiene parametros para
+        controlar la dificultad del juego.
+
+        Atributos:
+            alerta: Es un boleano que indica si el enemigo a visto al jugador.
+            disparando: Es un boleano que indica si el enemigo esta disparando
+                        y evita que tome otras acciones mientras lo realiza.
+            esperar: Es un entero que sirve para contar el tiempo entre una
+                     accion y otra.
+            eleccion: Es un entero aleatorio que sirve para elegir entre una
+                      accion y otra.
+            recarga: Es un entero que sirve como contador entre un disparo y
+                     otro, evitando que sean muy seguidos.
+    &#34;&#34;&#34;
+    def __init__ (self, posicionx, posiciony, tipo_personaje):
+        &#34;&#34;&#34;
+            Metodo constructor del enemigo, recibe como parametros los de la
+            anterior clase personaje, los demas atributos son ya definidos
+        &#34;&#34;&#34;
+        Personaje.__init__(self, posicionx, posiciony, tipo_personaje)
+        self.alerta = False
+        self.disparando = False
+        self.esperar = 15
+        self.eleccion = random.randint(0,5)
+        self.recarga = 7
+
+    def accion(self, stalker, disparos, objetos):
+        &#34;&#34;&#34;
+            Este metodo ejecuta las acciones del enemigo de forma automatica,
+            recibe 3 parametros la clase jugador (stalker), un grupo de
+            sprites que contienes a los diparos (disparos) y otro grupo de 
+            spites que contiene los objetos (objetos), no retorna ningun
+            dato, solo modifica los parametros de la clase.
+        &#34;&#34;&#34;
+        actual = self.posicion_estado.get(&#39;actual&#39;)
+        if stalker.posicionx &lt;= self.posicionx+24 &lt;= stalker.posicionx+50:
+            if actual == &#39;abajo&#39; and stalker.posiciony &gt;= self.posiciony+100:
+                if self.recarga == 7:
+                    pygame.mixer.music.play()
+                    disparo = bala(self.posicionx, self.posiciony, actual)
+                    disparos.add(disparo)
+                    self.disparando = True
+                    self.recarga = 0
+            if actual == &#39;arriba&#39;and stalker.posiciony &lt;= self.posiciony:
+                if self.recarga == 7:
+                    pygame.mixer.music.play()
+                    disparo = bala(self.posicionx, self.posiciony, actual)
+                    disparos.add(disparo)
+                    self.disparando = True
+                    self.recarga = 0
+        elif stalker.posiciony &lt;= self.posiciony+29 &lt;= stalker.posiciony+100:
+            if actual == &#39;izquierda&#39; and stalker.posicionx &lt;= self.posicionx:
+                if self.recarga == 7:
+                    pygame.mixer.music.play()
+                    disparo = bala(self.posicionx-1, self.posiciony, actual)
+                    disparos.add(disparo)
+                    self.disparando = True
+                    self.recarga = 0
+            if actual == &#39;derecha&#39; and stalker.posicionx &gt;= self.posicionx+50:
+                if self.recarga == 7:
+                    pygame.mixer.music.play()
+                    disparo = bala(self.posicionx+5, self.posiciony, actual)
+                    disparos.add(disparo)
+                    self.disparando = True
+                    self.recarga = 0
+        else:
+            self.disparando = False
+
+        if self.alerta == False and self.disparando == False:
+            if self.esperar == 0:
+                self.eleccion = random.randint(0,4)
+                self.esperar = random.randint(0,10)+10
+            if self.eleccion == 1:
+                if self.posiciony-5 &lt;= 0:
+                    self.eleccion = random.randint(2,4)
+                else:
+                    self.posiciony += -5
+                    self.rect.y = self.posiciony
+                    self.esperar += -1
+                    estado = int(self.posicion_estado.get(&#39;arriba&#39;))
+                    imagen = self.imagenes.subsurface(
+                        pygame.Rect(self.posicion_de_imagenes[estado]))
+                    self.image = pygame.transform.scale(imagen, (50, 100))
+                    estado = 0
+                    while estado &lt;= int(self.posicion_estado.get(&#39;arriba&#39;)):
+                        estado += 1
+    
+                    if estado == 8:
+                        estado = 6
+
+                    self.posicion_estado[&#39;arriba&#39;] = estado
+                    self.posicion_estado[&#39;actual&#39;] = &#39;arriba&#39;
+            elif self.eleccion == 2:
+                if self.posiciony+100 &gt;= 600:
+                    self.eleccion = random.randint(3,4)
+                else:
+                    self.posiciony += 5
+                    self.rect.y = self.posiciony
+                    self.esperar += -1
+                    estado = int(self.posicion_estado.get(&#39;abajo&#39;))
+                    imagen = self.imagenes.subsurface(
+                        pygame.Rect(self.posicion_de_imagenes[estado]))
+                    self.image = pygame.transform.scale(imagen, (50, 100))
+                    estado = 0
+                    while estado &lt;= int(self.posicion_estado.get(&#39;abajo&#39;)):
+                        estado += 1
+
+                    if estado == 3:
+                        estado = 0
+
+                    self.posicion_estado[&#39;abajo&#39;] = estado
+                    self.posicion_estado[&#39;actual&#39;] = &#39;abajo&#39;
+            elif self.eleccion == 3:
+                if self.posicionx -5 &lt;= 0:
+                    self.eleccion = 4
+                else:
+                    self.posicionx += -5
+                    self.rect.x = self.posicionx
+                    self.esperar += -1
+                    estado = int(self.posicion_estado.get(&#39;izquierda&#39;))
+                    imagen = self.imagenes.subsurface(
+                        pygame.Rect(self.posicion_de_imagenes[estado]))
+                    self.image = pygame.transform.scale(
+                        imagen, (int(15/0.26), 100))
+                    estado = 0
+                    while estado &lt;= int(self.posicion_estado.get(&#39;izquierda&#39;)):
+                        estado += 1
+
+                    if estado == 5:
+                        estado = 3
+
+                    self.posicion_estado[&#39;izquierda&#39;] = estado
+                    self.posicion_estado[&#39;actual&#39;] = &#39;izquierda&#39;
+            elif self.eleccion == 4:
+                if self.posicionx +50 &gt;= 900:
+                    self.eleccion = random.randint(1,3)
+                else: 
+                    self.posicionx += 5
+                    self.rect.x = self.posicionx
+                    self.esperar += -1
+                    estado = int(self.posicion_estado.get(&#39;derecha&#39;))
+                    imagen = self.imagenes.subsurface(
+                        pygame.Rect(self.posicion_de_imagenes[estado]))
+                    self.image = pygame.transform.scale(
+                        imagen, (int(15/0.26), 100))
+                    estado = 0
+                    while estado &lt;= int(self.posicion_estado.get(&#39;derecha&#39;)):
+                        estado += 1
+
+                    if estado == 11:
+                        estado = 9
+
+                    self.posicion_estado[&#39;derecha&#39;] = estado
+                    self.posicion_estado[&#39;actual&#39;] = &#39;derecha&#39;
+            else:
+                self.esperar += -1
+
+
+        if self.alerta == True and self.disparando == False:
+            if stalker.posicionx - self.posicionx &lt; 0:
+                distanciax = self.posicionx - stalker.posicionx
+            else:
+                distanciax = stalker.posicionx - self.posicionx
+
+            if stalker.posiciony - self.posiciony &lt; 0:
+                distanciay = self.posiciony - stalker.posiciony
+            else:
+                distanciay = stalker.posiciony - self.posiciony
+
+            if distanciax &gt;= distanciay:
+                if (stalker.posicionx - self.posicionx) &lt; 0: #izq
+                    self.posicionx += -5
+                    self.rect.x = self.posicionx
+                    estado = int(self.posicion_estado.get(&#39;izquierda&#39;))
+                    imagen = self.imagenes.subsurface(
+                        pygame.Rect(self.posicion_de_imagenes[estado]))
+                    self.image = pygame.transform.scale(
+                        imagen, (int(15/0.26), 100))
+                    estado = 0
+                    while estado &lt;= int(self.posicion_estado.get(&#39;izquierda&#39;)):
+                        estado += 1
+
+                    if estado == 5:
+                        estado = 3
+    
+                    self.posicion_estado[&#39;izquierda&#39;] = estado
+                    self.posicion_estado[&#39;actual&#39;] = &#39;izquierda&#39;
+                else:
+                    self.posicionx += 5
+                    self.rect.x = self.posicionx
+                    estado = int(self.posicion_estado.get(&#39;derecha&#39;))
+                    imagen = self.imagenes.subsurface(
+                        pygame.Rect(self.posicion_de_imagenes[estado]))
+                    self.image = pygame.transform.scale(
+                        imagen, (int(15/0.26), 100))
+                    estado = 0
+                    while estado &lt;= int(self.posicion_estado.get(&#39;derecha&#39;)):
+                        estado += 1
+
+                    if estado == 11:
+                        estado = 9
+
+                    self.posicion_estado[&#39;derecha&#39;] = estado
+                    self.posicion_estado[&#39;actual&#39;] = &#39;derecha&#39;
+            else:
+                if (stalker.posiciony - self.posiciony) &lt; 0: #arr
+                    self.posiciony += -5
+                    self.rect.y = self.posiciony
+                    estado = int(self.posicion_estado.get(&#39;arriba&#39;))
+                    imagen = self.imagenes.subsurface(
+                        pygame.Rect(self.posicion_de_imagenes[estado]))
+                    self.image = pygame.transform.scale(imagen, (50, 100))
+                    estado = 0
+                    while estado &lt;= int(self.posicion_estado.get(&#39;arriba&#39;)):
+                        estado += 1
+
+                    if estado == 8:
+                        estado = 6
+
+                    self.posicion_estado[&#39;arriba&#39;] = estado
+                    self.posicion_estado[&#39;actual&#39;] = &#39;arriba&#39;
+                else:
+                    self.posiciony += 5
+                    self.rect.y = self.posiciony
+                    estado = int(self.posicion_estado.get(&#39;abajo&#39;))
+                    imagen = self.imagenes.subsurface(
+                        pygame.Rect(self.posicion_de_imagenes[estado]))
+                    self.image = pygame.transform.scale(imagen, (50, 100))
+                    estado = 0
+                    while estado &lt;= int(self.posicion_estado.get(&#39;abajo&#39;)):
+                        estado += 1
+
+                    if estado == 3:
+                        estado = 0
+
+                    self.posicion_estado[&#39;abajo&#39;] = estado
+                    self.posicion_estado[&#39;actual&#39;] = &#39;abajo&#39;
+        
+        if self.recarga &lt; 7:
+            self.recarga += 1</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="STALKER.Personaje" href="#STALKER.Personaje">Personaje</a></li>
+<li>pygame.sprite.Sprite</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="STALKER.Enemigo.accion"><code class="name flex">
+<span>def <span class="ident">accion</span></span>(<span>self, stalker, disparos, objetos)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Este metodo ejecuta las acciones del enemigo de forma automatica,
+recibe 3 parametros la clase jugador (stalker), un grupo de
+sprites que contienes a los diparos (disparos) y otro grupo de
+spites que contiene los objetos (objetos), no retorna ningun
+dato, solo modifica los parametros de la clase.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def accion(self, stalker, disparos, objetos):
+    &#34;&#34;&#34;
+        Este metodo ejecuta las acciones del enemigo de forma automatica,
+        recibe 3 parametros la clase jugador (stalker), un grupo de
+        sprites que contienes a los diparos (disparos) y otro grupo de 
+        spites que contiene los objetos (objetos), no retorna ningun
+        dato, solo modifica los parametros de la clase.
+    &#34;&#34;&#34;
+    actual = self.posicion_estado.get(&#39;actual&#39;)
+    if stalker.posicionx &lt;= self.posicionx+24 &lt;= stalker.posicionx+50:
+        if actual == &#39;abajo&#39; and stalker.posiciony &gt;= self.posiciony+100:
+            if self.recarga == 7:
+                pygame.mixer.music.play()
+                disparo = bala(self.posicionx, self.posiciony, actual)
+                disparos.add(disparo)
+                self.disparando = True
+                self.recarga = 0
+        if actual == &#39;arriba&#39;and stalker.posiciony &lt;= self.posiciony:
+            if self.recarga == 7:
+                pygame.mixer.music.play()
+                disparo = bala(self.posicionx, self.posiciony, actual)
+                disparos.add(disparo)
+                self.disparando = True
+                self.recarga = 0
+    elif stalker.posiciony &lt;= self.posiciony+29 &lt;= stalker.posiciony+100:
+        if actual == &#39;izquierda&#39; and stalker.posicionx &lt;= self.posicionx:
+            if self.recarga == 7:
+                pygame.mixer.music.play()
+                disparo = bala(self.posicionx-1, self.posiciony, actual)
+                disparos.add(disparo)
+                self.disparando = True
+                self.recarga = 0
+        if actual == &#39;derecha&#39; and stalker.posicionx &gt;= self.posicionx+50:
+            if self.recarga == 7:
+                pygame.mixer.music.play()
+                disparo = bala(self.posicionx+5, self.posiciony, actual)
+                disparos.add(disparo)
+                self.disparando = True
+                self.recarga = 0
+    else:
+        self.disparando = False
+
+    if self.alerta == False and self.disparando == False:
+        if self.esperar == 0:
+            self.eleccion = random.randint(0,4)
+            self.esperar = random.randint(0,10)+10
+        if self.eleccion == 1:
+            if self.posiciony-5 &lt;= 0:
+                self.eleccion = random.randint(2,4)
+            else:
+                self.posiciony += -5
+                self.rect.y = self.posiciony
+                self.esperar += -1
+                estado = int(self.posicion_estado.get(&#39;arriba&#39;))
+                imagen = self.imagenes.subsurface(
+                    pygame.Rect(self.posicion_de_imagenes[estado]))
+                self.image = pygame.transform.scale(imagen, (50, 100))
+                estado = 0
+                while estado &lt;= int(self.posicion_estado.get(&#39;arriba&#39;)):
+                    estado += 1
+
+                if estado == 8:
+                    estado = 6
+
+                self.posicion_estado[&#39;arriba&#39;] = estado
+                self.posicion_estado[&#39;actual&#39;] = &#39;arriba&#39;
+        elif self.eleccion == 2:
+            if self.posiciony+100 &gt;= 600:
+                self.eleccion = random.randint(3,4)
+            else:
+                self.posiciony += 5
+                self.rect.y = self.posiciony
+                self.esperar += -1
+                estado = int(self.posicion_estado.get(&#39;abajo&#39;))
+                imagen = self.imagenes.subsurface(
+                    pygame.Rect(self.posicion_de_imagenes[estado]))
+                self.image = pygame.transform.scale(imagen, (50, 100))
+                estado = 0
+                while estado &lt;= int(self.posicion_estado.get(&#39;abajo&#39;)):
+                    estado += 1
+
+                if estado == 3:
+                    estado = 0
+
+                self.posicion_estado[&#39;abajo&#39;] = estado
+                self.posicion_estado[&#39;actual&#39;] = &#39;abajo&#39;
+        elif self.eleccion == 3:
+            if self.posicionx -5 &lt;= 0:
+                self.eleccion = 4
+            else:
+                self.posicionx += -5
+                self.rect.x = self.posicionx
+                self.esperar += -1
+                estado = int(self.posicion_estado.get(&#39;izquierda&#39;))
+                imagen = self.imagenes.subsurface(
+                    pygame.Rect(self.posicion_de_imagenes[estado]))
+                self.image = pygame.transform.scale(
+                    imagen, (int(15/0.26), 100))
+                estado = 0
+                while estado &lt;= int(self.posicion_estado.get(&#39;izquierda&#39;)):
+                    estado += 1
+
+                if estado == 5:
+                    estado = 3
+
+                self.posicion_estado[&#39;izquierda&#39;] = estado
+                self.posicion_estado[&#39;actual&#39;] = &#39;izquierda&#39;
+        elif self.eleccion == 4:
+            if self.posicionx +50 &gt;= 900:
+                self.eleccion = random.randint(1,3)
+            else: 
+                self.posicionx += 5
+                self.rect.x = self.posicionx
+                self.esperar += -1
+                estado = int(self.posicion_estado.get(&#39;derecha&#39;))
+                imagen = self.imagenes.subsurface(
+                    pygame.Rect(self.posicion_de_imagenes[estado]))
+                self.image = pygame.transform.scale(
+                    imagen, (int(15/0.26), 100))
+                estado = 0
+                while estado &lt;= int(self.posicion_estado.get(&#39;derecha&#39;)):
+                    estado += 1
+
+                if estado == 11:
+                    estado = 9
+
+                self.posicion_estado[&#39;derecha&#39;] = estado
+                self.posicion_estado[&#39;actual&#39;] = &#39;derecha&#39;
+        else:
+            self.esperar += -1
+
+
+    if self.alerta == True and self.disparando == False:
+        if stalker.posicionx - self.posicionx &lt; 0:
+            distanciax = self.posicionx - stalker.posicionx
+        else:
+            distanciax = stalker.posicionx - self.posicionx
+
+        if stalker.posiciony - self.posiciony &lt; 0:
+            distanciay = self.posiciony - stalker.posiciony
+        else:
+            distanciay = stalker.posiciony - self.posiciony
+
+        if distanciax &gt;= distanciay:
+            if (stalker.posicionx - self.posicionx) &lt; 0: #izq
+                self.posicionx += -5
+                self.rect.x = self.posicionx
+                estado = int(self.posicion_estado.get(&#39;izquierda&#39;))
+                imagen = self.imagenes.subsurface(
+                    pygame.Rect(self.posicion_de_imagenes[estado]))
+                self.image = pygame.transform.scale(
+                    imagen, (int(15/0.26), 100))
+                estado = 0
+                while estado &lt;= int(self.posicion_estado.get(&#39;izquierda&#39;)):
+                    estado += 1
+
+                if estado == 5:
+                    estado = 3
+
+                self.posicion_estado[&#39;izquierda&#39;] = estado
+                self.posicion_estado[&#39;actual&#39;] = &#39;izquierda&#39;
+            else:
+                self.posicionx += 5
+                self.rect.x = self.posicionx
+                estado = int(self.posicion_estado.get(&#39;derecha&#39;))
+                imagen = self.imagenes.subsurface(
+                    pygame.Rect(self.posicion_de_imagenes[estado]))
+                self.image = pygame.transform.scale(
+                    imagen, (int(15/0.26), 100))
+                estado = 0
+                while estado &lt;= int(self.posicion_estado.get(&#39;derecha&#39;)):
+                    estado += 1
+
+                if estado == 11:
+                    estado = 9
+
+                self.posicion_estado[&#39;derecha&#39;] = estado
+                self.posicion_estado[&#39;actual&#39;] = &#39;derecha&#39;
+        else:
+            if (stalker.posiciony - self.posiciony) &lt; 0: #arr
+                self.posiciony += -5
+                self.rect.y = self.posiciony
+                estado = int(self.posicion_estado.get(&#39;arriba&#39;))
+                imagen = self.imagenes.subsurface(
+                    pygame.Rect(self.posicion_de_imagenes[estado]))
+                self.image = pygame.transform.scale(imagen, (50, 100))
+                estado = 0
+                while estado &lt;= int(self.posicion_estado.get(&#39;arriba&#39;)):
+                    estado += 1
+
+                if estado == 8:
+                    estado = 6
+
+                self.posicion_estado[&#39;arriba&#39;] = estado
+                self.posicion_estado[&#39;actual&#39;] = &#39;arriba&#39;
+            else:
+                self.posiciony += 5
+                self.rect.y = self.posiciony
+                estado = int(self.posicion_estado.get(&#39;abajo&#39;))
+                imagen = self.imagenes.subsurface(
+                    pygame.Rect(self.posicion_de_imagenes[estado]))
+                self.image = pygame.transform.scale(imagen, (50, 100))
+                estado = 0
+                while estado &lt;= int(self.posicion_estado.get(&#39;abajo&#39;)):
+                    estado += 1
+
+                if estado == 3:
+                    estado = 0
+
+                self.posicion_estado[&#39;abajo&#39;] = estado
+                self.posicion_estado[&#39;actual&#39;] = &#39;abajo&#39;
+    
+    if self.recarga &lt; 7:
+        self.recarga += 1</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="STALKER.Hud_f"><code class="flex name class">
+<span>class <span class="ident">Hud_f</span></span>
+</code></dt>
+<dd>
+<section class="desc"><p>Clase que contiene al hud y la imagen que se utlizara de fondo</p>
+<h2 id="atributos">Atributos</h2>
+<dl>
+<dt><strong><code>rgb</code></strong></dt>
+<dd>Es una tupla que contiene el color en codigo RGB el color
+que tendra de fondo el hud</dd>
+<dt><strong><code>imagen</code></strong></dt>
+<dd>Es un surface que contiene la imagen de fondo del juego
+en si.</dd>
+</dl>
+<p>Metodo constructor de la clase, no recibe ningun parametro, esta
+todo definido.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class Hud_f:
+    &#34;&#34;&#34;
+        Clase que contiene al hud y la imagen que se utlizara de fondo
+        
+        Atributos:
+            rgb: Es una tupla que contiene el color en codigo RGB el color
+                 que tendra de fondo el hud
+            imagen: Es un surface que contiene la imagen de fondo del juego
+                    en si.
+    &#34;&#34;&#34;
+    def __init__(self):
+        &#34;&#34;&#34;
+            Metodo constructor de la clase, no recibe ningun parametro, esta
+            todo definido.
+        &#34;&#34;&#34;
+        self.rgb = (50,0,0)
+        self.imagen = pygame.image.load(os.path.join(&#39;Images&#39;, &#39;pasto.jpg&#39;))
+        self.imagen = pygame.transform.scale(self.imagen, (50,50))</code></pre>
+</details>
+</dd>
+<dt id="STALKER.Jugador"><code class="flex name class">
+<span>class <span class="ident">Jugador</span></span>
+<span>(</span><span>posicionx, posiciony, tipo_personaje)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Clase que representa al jugador, esta clase contiene los atributos de
+la anterior clase Personaje, no tiene otros atributos extra.</p>
+<p>Metodo construtor del Jugador solo recibe los parametros de la
+anterior clase.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class Jugador(Personaje):
+    &#34;&#34;&#34;
+        Clase que representa al jugador, esta clase contiene los atributos de
+        la anterior clase Personaje, no tiene otros atributos extra.
+    &#34;&#34;&#34;
+    def __init__ (self, posicionx, posiciony, tipo_personaje):
+        &#34;&#34;&#34;
+            Metodo construtor del Jugador solo recibe los parametros de la
+            anterior clase.
+        &#34;&#34;&#34;
+        Personaje.__init__(self, posicionx, posiciony, tipo_personaje)
+
+    def accion (self, tecla, disparos):
+        &#34;&#34;&#34;
+            Este metodo contiene todas las acciones que puede tomar el jugador
+            recibe como parametro la tecla presionada por el jugador (tecla) y
+            un grupo de sprites que contiene los disparos (disparos), no
+            retorna ningun dato, solo modifica los parametros de la clase.
+        &#34;&#34;&#34;
+        if tecla[pygame.K_UP] or tecla[pygame.K_w]:
+            estado = self.posicion_estado.get(&#39;arriba&#39;)
+            imagen = self.imagenes.subsurface(
+                pygame.Rect(self.posicion_de_imagenes[int(estado)]))
+            if (self.posiciony) &gt;= 0 and self.posiciony - 5 &gt;= 0:
+                self.posiciony += -8
+                self.rect.y = self.posiciony
+                self.image = pygame.transform.scale(imagen, (50, 100))
+                estado = 0
+                while estado &lt;= int(self.posicion_estado.get(&#39;arriba&#39;)):
+                    estado += 1
+            
+                if estado == 3:
+                    estado = 0
+
+                self.posicion_estado[&#39;arriba&#39;] = estado
+                self.posicion_estado[&#39;actual&#39;] = &#39;arriba&#39;
+            else:
+                imagen = self.imagenes.subsurface(pygame.Rect(28, 1, 13, 32))
+                self.image = pygame.transform.scale(imagen, (50, 100))
+                self.posicion_estado[&#39;actual&#39;] = &#39;arriba&#39;
+
+        elif tecla[pygame.K_DOWN] or tecla[pygame.K_s]:
+            estado = self.posicion_estado.get(&#39;abajo&#39;)
+            imagen = self.imagenes.subsurface(
+                pygame.Rect(self.posicion_de_imagenes[int(estado)]))
+            if (self.posiciony)+105 &lt;= 600:         
+                self.posiciony += 8
+                self.rect.y = self.posiciony
+                self.image = pygame.transform.scale(imagen, (50, 100))
+                estado = 3
+                while estado &lt;= int(self.posicion_estado.get(&#39;abajo&#39;)):
+                    estado += 1
+
+                if estado == 6:
+                    estado = 3
+                self.posicion_estado[&#39;abajo&#39;] = estado
+                self.posicion_estado[&#39;actual&#39;] = &#39;abajo&#39;
+            else:
+                imagen = self.imagenes.subsurface(pygame.Rect(99, 1, 13, 32))
+                self.posicion_estado[&#39;actual&#39;] = &#39;abajo&#39;
+                self.image = pygame.transform.scale(imagen, (50, 100))
+
+        elif tecla[pygame.K_LEFT] or tecla[pygame.K_a]:
+            estado = self.posicion_estado.get(&#39;izquierda&#39;)
+            imagen = self.imagenes.subsurface(
+                pygame.Rect(self.posicion_de_imagenes[int(estado)]))            
+            if (self.posicionx) &gt;= 0 and self.posicionx - 5 &gt;= 0:           
+                self.posicionx += -8
+                self.rect.x = self.posicionx
+                self.image = pygame.transform.scale(
+                    imagen, (int(16/0.26), 100))
+                estado = 6
+                while estado &lt;= int(self.posicion_estado.get(&#39;izquierda&#39;)):
+                    estado += 1
+
+                if estado == 9:
+                    estado = 6
+                self.posicion_estado[&#39;izquierda&#39;] = estado
+                self.posicion_estado[&#39;actual&#39;] = &#39;izquierda&#39;
+
+            else:
+                imagen = self.imagenes.subsurface(pygame.Rect(170, 1, 15, 32))
+                self.posicion_estado[&#39;actual&#39;] = &#39;izquierda&#39;
+                self.image = pygame.transform.scale(imagen, (int(16/0.26), 100))
+
+        elif tecla[pygame.K_RIGHT] or tecla[pygame.K_d]:
+            estado = self.posicion_estado.get(&#39;derecha&#39;)
+            imagen = self.imagenes.subsurface(
+                pygame.Rect(self.posicion_de_imagenes[int(estado)]))
+            if (self.posicionx)+int(16/0.26) &lt;= 900:          
+                self.posicionx += 8
+                self.rect.x = self.posicionx
+                self.image = pygame.transform.scale(
+                    imagen, (int(16/0.26), 100))
+                estado = 9
+                while estado &lt;= int(self.posicion_estado.get(&#39;derecha&#39;)):
+                    estado += 1
+
+                if estado == 12:
+                    estado = 9
+                self.posicion_estado[&#39;derecha&#39;] = estado
+                self.posicion_estado[&#39;actual&#39;] = &#39;derecha&#39;
+
+            else:
+                imagen = self.imagenes.subsurface(pygame.Rect(242, 1, 16, 32))
+                self.posicion_estado[&#39;actual&#39;] = &#39;derecha&#39;
+                self.image = pygame.transform.scale(
+                    imagen, (int(16/0.26), 100))
+        else:
+            estado = self.posicion_estado.get(&#39;actual&#39;)
+            if estado == &#39;arriba&#39;:
+                imagen = self.imagenes.subsurface(pygame.Rect(28, 1, 13, 32))
+                self.image = pygame.transform.scale(imagen, (50, 100))
+            if estado == &#39;abajo&#39;:
+                imagen = self.imagenes.subsurface(pygame.Rect(99, 1, 13, 32))
+                self.image = pygame.transform.scale(imagen, (50, 100))
+            if estado == &#39;izquierda&#39;:
+                imagen = self.imagenes.subsurface(pygame.Rect(170, 1, 16, 32))
+                self.image = pygame.transform.scale(
+                    imagen, (int(16/0.26), 100))
+            if estado == &#39;derecha&#39;:
+                imagen = self.imagenes.subsurface(pygame.Rect(242, 1, 16, 32))
+                self.image = pygame.transform.scale(
+                    imagen, (int(16/0.26), 100))
+        
+        if tecla[pygame.K_SPACE]:
+            if self.recarga &gt;= 12:
+                pygame.mixer.music.play()
+                disparo = bala(self.posicionx, self.posiciony, 
+                    self.posicion_estado.get(&#39;actual&#39;))
+                disparos.add(disparo)
+                self.recarga = 0
+
+        if tecla[pygame.K_r]:
+            self.recarga +=2
+
+        self.recarga += 1</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="STALKER.Personaje" href="#STALKER.Personaje">Personaje</a></li>
+<li>pygame.sprite.Sprite</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="STALKER.Jugador.accion"><code class="name flex">
+<span>def <span class="ident">accion</span></span>(<span>self, tecla, disparos)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Este metodo contiene todas las acciones que puede tomar el jugador
+recibe como parametro la tecla presionada por el jugador (tecla) y
+un grupo de sprites que contiene los disparos (disparos), no
+retorna ningun dato, solo modifica los parametros de la clase.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def accion (self, tecla, disparos):
+    &#34;&#34;&#34;
+        Este metodo contiene todas las acciones que puede tomar el jugador
+        recibe como parametro la tecla presionada por el jugador (tecla) y
+        un grupo de sprites que contiene los disparos (disparos), no
+        retorna ningun dato, solo modifica los parametros de la clase.
+    &#34;&#34;&#34;
+    if tecla[pygame.K_UP] or tecla[pygame.K_w]:
+        estado = self.posicion_estado.get(&#39;arriba&#39;)
+        imagen = self.imagenes.subsurface(
+            pygame.Rect(self.posicion_de_imagenes[int(estado)]))
+        if (self.posiciony) &gt;= 0 and self.posiciony - 5 &gt;= 0:
+            self.posiciony += -8
+            self.rect.y = self.posiciony
+            self.image = pygame.transform.scale(imagen, (50, 100))
+            estado = 0
+            while estado &lt;= int(self.posicion_estado.get(&#39;arriba&#39;)):
+                estado += 1
+        
+            if estado == 3:
+                estado = 0
+
+            self.posicion_estado[&#39;arriba&#39;] = estado
+            self.posicion_estado[&#39;actual&#39;] = &#39;arriba&#39;
+        else:
+            imagen = self.imagenes.subsurface(pygame.Rect(28, 1, 13, 32))
+            self.image = pygame.transform.scale(imagen, (50, 100))
+            self.posicion_estado[&#39;actual&#39;] = &#39;arriba&#39;
+
+    elif tecla[pygame.K_DOWN] or tecla[pygame.K_s]:
+        estado = self.posicion_estado.get(&#39;abajo&#39;)
+        imagen = self.imagenes.subsurface(
+            pygame.Rect(self.posicion_de_imagenes[int(estado)]))
+        if (self.posiciony)+105 &lt;= 600:         
+            self.posiciony += 8
+            self.rect.y = self.posiciony
+            self.image = pygame.transform.scale(imagen, (50, 100))
+            estado = 3
+            while estado &lt;= int(self.posicion_estado.get(&#39;abajo&#39;)):
+                estado += 1
+
+            if estado == 6:
+                estado = 3
+            self.posicion_estado[&#39;abajo&#39;] = estado
+            self.posicion_estado[&#39;actual&#39;] = &#39;abajo&#39;
+        else:
+            imagen = self.imagenes.subsurface(pygame.Rect(99, 1, 13, 32))
+            self.posicion_estado[&#39;actual&#39;] = &#39;abajo&#39;
+            self.image = pygame.transform.scale(imagen, (50, 100))
+
+    elif tecla[pygame.K_LEFT] or tecla[pygame.K_a]:
+        estado = self.posicion_estado.get(&#39;izquierda&#39;)
+        imagen = self.imagenes.subsurface(
+            pygame.Rect(self.posicion_de_imagenes[int(estado)]))            
+        if (self.posicionx) &gt;= 0 and self.posicionx - 5 &gt;= 0:           
+            self.posicionx += -8
+            self.rect.x = self.posicionx
+            self.image = pygame.transform.scale(
+                imagen, (int(16/0.26), 100))
+            estado = 6
+            while estado &lt;= int(self.posicion_estado.get(&#39;izquierda&#39;)):
+                estado += 1
+
+            if estado == 9:
+                estado = 6
+            self.posicion_estado[&#39;izquierda&#39;] = estado
+            self.posicion_estado[&#39;actual&#39;] = &#39;izquierda&#39;
+
+        else:
+            imagen = self.imagenes.subsurface(pygame.Rect(170, 1, 15, 32))
+            self.posicion_estado[&#39;actual&#39;] = &#39;izquierda&#39;
+            self.image = pygame.transform.scale(imagen, (int(16/0.26), 100))
+
+    elif tecla[pygame.K_RIGHT] or tecla[pygame.K_d]:
+        estado = self.posicion_estado.get(&#39;derecha&#39;)
+        imagen = self.imagenes.subsurface(
+            pygame.Rect(self.posicion_de_imagenes[int(estado)]))
+        if (self.posicionx)+int(16/0.26) &lt;= 900:          
+            self.posicionx += 8
+            self.rect.x = self.posicionx
+            self.image = pygame.transform.scale(
+                imagen, (int(16/0.26), 100))
+            estado = 9
+            while estado &lt;= int(self.posicion_estado.get(&#39;derecha&#39;)):
+                estado += 1
+
+            if estado == 12:
+                estado = 9
+            self.posicion_estado[&#39;derecha&#39;] = estado
+            self.posicion_estado[&#39;actual&#39;] = &#39;derecha&#39;
+
+        else:
+            imagen = self.imagenes.subsurface(pygame.Rect(242, 1, 16, 32))
+            self.posicion_estado[&#39;actual&#39;] = &#39;derecha&#39;
+            self.image = pygame.transform.scale(
+                imagen, (int(16/0.26), 100))
+    else:
+        estado = self.posicion_estado.get(&#39;actual&#39;)
+        if estado == &#39;arriba&#39;:
+            imagen = self.imagenes.subsurface(pygame.Rect(28, 1, 13, 32))
+            self.image = pygame.transform.scale(imagen, (50, 100))
+        if estado == &#39;abajo&#39;:
+            imagen = self.imagenes.subsurface(pygame.Rect(99, 1, 13, 32))
+            self.image = pygame.transform.scale(imagen, (50, 100))
+        if estado == &#39;izquierda&#39;:
+            imagen = self.imagenes.subsurface(pygame.Rect(170, 1, 16, 32))
+            self.image = pygame.transform.scale(
+                imagen, (int(16/0.26), 100))
+        if estado == &#39;derecha&#39;:
+            imagen = self.imagenes.subsurface(pygame.Rect(242, 1, 16, 32))
+            self.image = pygame.transform.scale(
+                imagen, (int(16/0.26), 100))
+    
+    if tecla[pygame.K_SPACE]:
+        if self.recarga &gt;= 12:
+            pygame.mixer.music.play()
+            disparo = bala(self.posicionx, self.posiciony, 
+                self.posicion_estado.get(&#39;actual&#39;))
+            disparos.add(disparo)
+            self.recarga = 0
+
+    if tecla[pygame.K_r]:
+        self.recarga +=2
+
+    self.recarga += 1</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="STALKER.Objeto"><code class="flex name class">
+<span>class <span class="ident">Objeto</span></span>
+<span>(</span><span>o, x, y)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Esta clase sirve para crear cada objeto en el juego, contiene 3
+opciones de creacion dependiendo que objeto se desee, utliza
+modulo sprite, como solo son objetos estaticos no tiene otros metodos.</p>
+<h2 id="atributos">Atributos</h2>
+<dl>
+<dt><strong><code>image</code></strong></dt>
+<dd>Es un surface que sera la imagen del objeto.</dd>
+<dt><strong><code>rect</code></strong></dt>
+<dd>Es un rect que contiene el ancho y largo de la imagen
+como tambien su posicion tanto en x como en y.</dd>
+</dl>
+<p>Metodo contructor de la clase recie 3 parametros, un entero que es
+para definir cual de los 3 objetos se usara (o), un entero para su
+posicion en x (x) y un ultimo entero para definir su posicion
+en y (y)</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class Objeto(pygame.sprite.Sprite):
+    &#34;&#34;&#34;
+        Esta clase sirve para crear cada objeto en el juego, contiene 3
+        opciones de creacion dependiendo que objeto se desee, utliza
+        modulo sprite, como solo son objetos estaticos no tiene otros metodos.
+        
+        Atributos:
+            image: Es un surface que sera la imagen del objeto.
+            rect: Es un rect que contiene el ancho y largo de la imagen
+                  como tambien su posicion tanto en x como en y.
+    &#34;&#34;&#34;
+    def __init__ (self,o,x,y):
+        &#34;&#34;&#34;
+            Metodo contructor de la clase recie 3 parametros, un entero que es
+            para definir cual de los 3 objetos se usara (o), un entero para su
+            posicion en x (x) y un ultimo entero para definir su posicion
+            en y (y)
+        &#34;&#34;&#34;
+        pygame.sprite.Sprite.__init__(self)
+        if o == 1:
+            self.image = pygame.image.load(os.path.join(&#39;Images&#39;, &#39;Arbol.png&#39;))
+            self.image = pygame.transform.scale(self.image, (50,120))
+            self.rect = self.image.get_rect()
+            self.rect = self.rect.move(x,y)
+        elif o == 2:
+            self.image = pygame.image.load(os.path.join(&#39;Images&#39;, &#39;caja.png&#39;))
+            self.image = pygame.transform.scale(self.image, (40, 50))
+            self.rect = self.image.get_rect()
+            self.rect = self.rect.move(x,y)
+        elif o==3:
+            self.image = pygame.image.load(os.path.join(
+                &#39;Images&#39;, &#39;targeta.png&#39;))
+            self.image = pygame.transform.scale(self.image, (30,20))
+            self.rect = self.image.get_rect()
+            self.rect = self.rect.move(x,y)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pygame.sprite.Sprite</li>
+</ul>
+</dd>
+<dt id="STALKER.Personaje"><code class="flex name class">
+<span>class <span class="ident">Personaje</span></span>
+<span>(</span><span>posicionx, posiciony, tipo_personaje)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>La clase personaje, es la clase padre para la clase jugador y enemigo,
+contiene todos los atributos en comun y necesario para el juego utiliza
+el modulo sprite de pygame.</p>
+<h2 id="atributos">Atributos</h2>
+<dl>
+<dt><strong><code>posicionx</code></strong></dt>
+<dd>Es un int que representa el lugar en x de la pantalla
+que tiene el personaje.</dd>
+<dt><strong><code>posiciony</code></strong></dt>
+<dd>Es un int que representa el lugar en y de la pantalla
+que tiene el personaje.</dd>
+<dt><strong><code>recarga</code></strong></dt>
+<dd>Es un int y es el contador que dereminara la velocidad de
+disparo del personaje.</dd>
+<dt><strong><code>tipo_personaje</code></strong></dt>
+<dd>Es un boleano que tine como fin determinar si el
+el personaje es un enemigo o jugador, en caso de
+ser juagor elegira distintas imagenes.</dd>
+<dt><strong><code>imagenes</code></strong></dt>
+<dd>Es un surface que carga la imagen que contiene las
+las imagenes a usar.</dd>
+<dt><strong><code>posicion_de_imagenes</code></strong></dt>
+<dd>Es una lista que contiene todas las
+posciciones de las subimagenes dentro de
+imagenes.</dd>
+<dt><strong><code>posicion_estado</code></strong></dt>
+<dd>Es un diccionario que sirve para recordar y
+poder elegir la subimagen siguiente a la
+animacion del personaje y tambien ver la
+direccion donde esta viendo el personaje.</dd>
+<dt><strong><code>image</code></strong></dt>
+<dd>Es un surface que se utilizara para mostrar en la pantalla</dd>
+<dt><strong><code>rect</code></strong></dt>
+<dd>Es un Rect que contiene el ancho, largo y posicion en el mapa
+del objeto.</dd>
+</dl>
+<p>Metodo constructor de Personaje, recibe 3 parametros necesarios
+para construir el personaje si tipo_personaje es False
+cargara las imagenes del enemigo en caso contrario seran del
+jugador.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class Personaje(pygame.sprite.Sprite):
+    &#34;&#34;&#34;
+        La clase personaje, es la clase padre para la clase jugador y enemigo,
+        contiene todos los atributos en comun y necesario para el juego utiliza
+        el modulo sprite de pygame.
+
+        Atributos:
+            posicionx: Es un int que representa el lugar en x de la pantalla 
+                       que tiene el personaje.
+            posiciony: Es un int que representa el lugar en y de la pantalla 
+                       que tiene el personaje.
+            recarga: Es un int y es el contador que dereminara la velocidad de
+                     disparo del personaje.
+            tipo_personaje: Es un boleano que tine como fin determinar si el
+                            el personaje es un enemigo o jugador, en caso de
+                            ser juagor elegira distintas imagenes.
+            imagenes: Es un surface que carga la imagen que contiene las
+                      las imagenes a usar.
+            posicion_de_imagenes: Es una lista que contiene todas las
+                                  posciciones de las subimagenes dentro de
+                                  imagenes.
+            posicion_estado: Es un diccionario que sirve para recordar y
+                             poder elegir la subimagen siguiente a la 
+                             animacion del personaje y tambien ver la
+                             direccion donde esta viendo el personaje.
+            image: Es un surface que se utilizara para mostrar en la pantalla
+            rect: Es un Rect que contiene el ancho, largo y posicion en el mapa
+                  del objeto.
+    &#34;&#34;&#34;
+    def __init__ (self, posicionx, posiciony, tipo_personaje):
+        &#34;&#34;&#34; Metodo constructor de Personaje, recibe 3 parametros necesarios 
+            para construir el personaje si tipo_personaje es False
+            cargara las imagenes del enemigo en caso contrario seran del 
+            jugador. 
+        &#34;&#34;&#34;
+        pygame.sprite.Sprite.__init__(self)
+        self.posicionx = posicionx
+        self.posiciony = posiciony
+        self.recarga = 12
+        if tipo_personaje == True:
+            self.imagenes = (
+                pygame.image.load(os.path.join(&#39;Images&#39;,&#39;Sprite.png&#39;)))
+            imagen = self.imagenes.subsurface(pygame.Rect(99, 1, 13, 31))
+            self.image = pygame.transform.scale(imagen, (50, 100))
+            self.posicion_de_imagenes = [(4, 1, 13, 32),   #ar,0,1 
+                                         (28, 1, 13, 32),  #ar,1,2
+                                         (52, 1, 13, 32),  #ar,2,3
+                                         (75, 1, 13, 32),  #ab,3,1
+                                         (99, 1, 13, 32),  #ab,4,2
+                                         (123, 1, 13, 32), #ab,5,3
+                                         (146, 1, 16, 32), #iz,6,1
+                                         (170, 1, 16, 32), #iz,7,2
+                                         (194, 1, 16, 32), #iz,8,3
+                                         (218, 1, 16, 32), #der,9,1
+                                         (242, 1, 16, 32), #der,10,2
+                                         (266, 1, 16, 32)  #der, 11,3
+                                        ]
+            self.posicion_estado = { &#39;arriba&#39;:&#39;0&#39;,
+                                    &#39;abajo&#39;:&#39;3&#39;,
+                                    &#39;izquierda&#39;:&#39;6&#39;,
+                                    &#39;derecha&#39;:&#39;9&#39;,
+                                    &#39;actual&#39;:&#39;abajo&#39;
+                                    }
+        else:
+            self.imagenes = (
+                pygame.image.load(os.path.join(&#39;Images&#39;, &#39;Spriteenemigo.png&#39;)))
+            imagen = self.imagenes.subsurface(pygame.Rect(30, 5 ,13, 32))
+            self.image = pygame.transform.scale(imagen, (50,100))
+            self.posicion_de_imagenes = [(6, 5, 13, 32),   #ab,0,1
+                                        (30, 5, 13, 32),  #ab,1,2
+                                        (54, 5, 13, 32),  #ab,2,3
+                                        (101, 5, 15, 32), #iz,3,1
+                                        (125, 5, 15, 32), #iz,4,2
+                                        (149, 5, 15, 32), #iz,5,3
+                                        (200, 5, 12, 32), #ar,6,1
+                                        (224, 5, 12 ,32), #ar,7,2
+                                        (248, 5, 12, 32), #ar,8,3
+                                        (294, 5, 15, 32), #der,9,1
+                                        (318, 5, 15, 32), #der,10,2
+                                        (342, 5, 15, 32)  #der,11,3
+                                       ]
+            self.posicion_estado = { &#39;arriba&#39;:&#39;6&#39;,
+                                    &#39;abajo&#39;:&#39;0&#39;,
+                                    &#39;izquierda&#39;:&#39;4&#39;,
+                                    &#39;derecha&#39;:&#39;9&#39;,
+                                    &#39;actual&#39;:&#39;abajo&#39;
+                                    }
+
+        self.rect = self.image.get_rect()
+        self.rect = self.rect.move(self.posicionx,self.posiciony)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pygame.sprite.Sprite</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="STALKER.Enemigo" href="#STALKER.Enemigo">Enemigo</a></li>
+<li><a title="STALKER.Jugador" href="#STALKER.Jugador">Jugador</a></li>
+</ul>
+</dd>
+<dt id="STALKER.bala"><code class="flex name class">
+<span>class <span class="ident">bala</span></span>
+<span>(</span><span>posicionx, posiciony, direccion)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Clase que representa una bala dentro del juego, utiliza el modulo
+sprite.</p>
+<h2 id="atributos">Atributos</h2>
+<dl>
+<dt><strong><code>image</code></strong></dt>
+<dd>Es un surface y la imagen de la bala.</dd>
+<dt><strong><code>posicionx</code></strong></dt>
+<dd>Es un entero que sirve para ubicar en el eje x la
+posicion de la bala.</dd>
+<dt><strong><code>posiciony</code></strong></dt>
+<dd>Es un entero que sirve para ubicar en el eje y la
+posicion de la bala.</dd>
+<dt><strong><code>direccion</code></strong></dt>
+<dd>Es un string y sirve para indicar la trayectoria de la
+bala durante el juego</dd>
+<dt><strong><code>rect</code></strong></dt>
+<dd>Es un rect que contiene el ancho, largo y posicion de la
+imagen y que utilizara en el juego.</dd>
+</dl>
+<p>Metodo constructor de la clase bala y que recibe como parametro un
+entero para la posicion en x (posicionx), otro entero para la
+posicion en y (posiciony) y el string para reprecentar la
+trayectoria (direccion), los parametros recibidos son de los
+personajes.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class bala(pygame.sprite.Sprite):
+    &#34;&#34;&#34;
+        Clase que representa una bala dentro del juego, utiliza el modulo
+        sprite.
+        
+        Atributos:
+            image: Es un surface y la imagen de la bala.
+            posicionx: Es un entero que sirve para ubicar en el eje x la
+                       posicion de la bala.
+            posiciony: Es un entero que sirve para ubicar en el eje y la
+                       posicion de la bala.
+            direccion: Es un string y sirve para indicar la trayectoria de la
+                       bala durante el juego
+            rect: Es un rect que contiene el ancho, largo y posicion de la
+                  imagen y que utilizara en el juego.
+    &#34;&#34;&#34;
+    def __init__ (self, posicionx, posiciony, direccion):
+        &#34;&#34;&#34;
+            Metodo constructor de la clase bala y que recibe como parametro un
+            entero para la posicion en x (posicionx), otro entero para la
+            posicion en y (posiciony) y el string para reprecentar la 
+            trayectoria (direccion), los parametros recibidos son de los 
+            personajes.
+        &#34;&#34;&#34;
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface([5,5])
+        self.image.fill((25,25,25))
+        if direccion == &#39;arriba&#39;:
+            self.posicionx = posicionx + 24
+            self.posiciony = posiciony - 5
+        elif direccion == &#39;abajo&#39;:
+            self.posicionx = posicionx +24
+            self.posiciony = posiciony +100
+        elif direccion == &#39;izquierda&#39;:
+            self.posicionx = posicionx -6
+            self.posiciony = posiciony +29
+        else:
+            self.posicionx = posicionx +63
+            self.posiciony = posiciony +29
+
+        self.direccion = direccion
+        self.rect = self.image.get_rect()
+        self.rect = self.rect.move(self.posicionx,self.posiciony)
+
+    def mover(self):
+        &#34;&#34;&#34;
+            Este metodo sirve para mover cada bala en pantalla solo cambia los
+            parametros de la clase, por lo que no recibe otro parametros, no
+            retorna ningun dato.
+        &#34;&#34;&#34;
+        if self.direccion == &#39;arriba&#39;:
+            self.posiciony += -15
+            self.rect.y = self.posiciony
+    
+        if self.direccion == &#39;abajo&#39;:
+            self.posiciony += 15
+            self.rect.y = self.posiciony
+
+        if self.direccion == &#39;izquierda&#39;:
+            self.posicionx += -15
+            self.rect.x = self.posicionx
+
+        if self.direccion == &#39;derecha&#39;:
+            self.posicionx += 15
+            self.rect.x = self.posicionx</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pygame.sprite.Sprite</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="STALKER.bala.mover"><code class="name flex">
+<span>def <span class="ident">mover</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Este metodo sirve para mover cada bala en pantalla solo cambia los
+parametros de la clase, por lo que no recibe otro parametros, no
+retorna ningun dato.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def mover(self):
+    &#34;&#34;&#34;
+        Este metodo sirve para mover cada bala en pantalla solo cambia los
+        parametros de la clase, por lo que no recibe otro parametros, no
+        retorna ningun dato.
+    &#34;&#34;&#34;
+    if self.direccion == &#39;arriba&#39;:
+        self.posiciony += -15
+        self.rect.y = self.posiciony
+
+    if self.direccion == &#39;abajo&#39;:
+        self.posiciony += 15
+        self.rect.y = self.posiciony
+
+    if self.direccion == &#39;izquierda&#39;:
+        self.posicionx += -15
+        self.rect.x = self.posicionx
+
+    if self.direccion == &#39;derecha&#39;:
+        self.posicionx += 15
+        self.rect.x = self.posicionx</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="STALKER.crearobjetos" href="#STALKER.crearobjetos">crearobjetos</a></code></li>
+<li><code><a title="STALKER.iniciarjuego" href="#STALKER.iniciarjuego">iniciarjuego</a></code></li>
+<li><code><a title="STALKER.main" href="#STALKER.main">main</a></code></li>
+<li><code><a title="STALKER.pintar" href="#STALKER.pintar">pintar</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="STALKER.Enemigo" href="#STALKER.Enemigo">Enemigo</a></code></h4>
+<ul class="">
+<li><code><a title="STALKER.Enemigo.accion" href="#STALKER.Enemigo.accion">accion</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="STALKER.Hud_f" href="#STALKER.Hud_f">Hud_f</a></code></h4>
+</li>
+<li>
+<h4><code><a title="STALKER.Jugador" href="#STALKER.Jugador">Jugador</a></code></h4>
+<ul class="">
+<li><code><a title="STALKER.Jugador.accion" href="#STALKER.Jugador.accion">accion</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="STALKER.Objeto" href="#STALKER.Objeto">Objeto</a></code></h4>
+</li>
+<li>
+<h4><code><a title="STALKER.Personaje" href="#STALKER.Personaje">Personaje</a></code></h4>
+</li>
+<li>
+<h4><code><a title="STALKER.bala" href="#STALKER.bala">bala</a></code></h4>
+<ul class="">
+<li><code><a title="STALKER.bala.mover" href="#STALKER.bala.mover">mover</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.6.2</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
